@@ -1,8 +1,10 @@
 name: Build, Test and Deploy
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,7 +28,10 @@ jobs:
 
       - name: Deploy 🚀
         run: |
+          cd agile
           npm run deploy
           git add out/
           git commit -m "Deploy to GitHub Pages"
           git push origin HEAD:gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.AGILE_SECRET }}

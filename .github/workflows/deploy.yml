@@ -46,7 +46,6 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build-and-deploy
     steps:
@@ -56,9 +55,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: NextJSBuild
+          path: ./agile/out
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.NEW_SECRET }}
-          publish_dir: ./NextJSBuild
+          publish_dir: ./agile/out

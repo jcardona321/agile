@@ -27,22 +27,14 @@ jobs:
         with:
           node-version: "14"
 
-      - name: Clear npm cache
-        run: npm cache clean --force
-
       - name: Install dependencies
         working-directory: agile
-        run: npm install
+        run: npm ci
 
-      - name: Install dependencies and Build 🔧 
+      - name: Build and Export 🔧 
+        working-directory: agile
         run: |
-          cd agile
-          npm ci
-          npm run deploy
-
-      - name: Static HTML export with Next.js
-        run: |
-          cd agile
+          npm run build
           npm run export
 
       - name: Upload artifact

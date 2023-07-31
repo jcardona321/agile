@@ -30,15 +30,18 @@ jobs:
           static_site_generator: next
       - name: Install dependencies
         run: npm ci
+        working-directory: ./agile
       - name: Build with Next.js
         run: npm run build
+        working-directory: ./agile
       - name: Static HTML export with Next.js
         run: npm run export
+        working-directory: ./agile
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: NextJSBuild
-          path: ./out
+          path: ./agile/out
 
   deploy:
     environment:

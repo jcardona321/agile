@@ -28,11 +28,11 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
-        working-directory: agile
+        working-directory: agile/agile
         run: npm ci
 
       - name: Build and Export 🔧 
-        working-directory: agile
+        working-directory: agile/agile
         run: |
           npm run build
           npm run export
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: NextJSBuild
-          path: ./agile/out
+          path: ./agile/agile/out
 
   deploy:
     environment:
@@ -55,10 +55,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: NextJSBuild
-          path: ./agile/out
+          path: ./agile/agile/out
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.NEW_SECRET }}
-          publish_dir: ./agile/out
+          publish_dir: ./agile/agile/out

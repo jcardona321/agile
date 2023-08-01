@@ -24,15 +24,15 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/Next/yarn.lock" ]; then
-            echo "manager=yarn" >> $GITHUB_OUTPUT
-            echo "command=install" >> $GITHUB_OUTPUT
-            echo "runner=yarn" >> $GITHUB_OUTPUT
+          if [ -f "${{ github.workspace }}/Final_Project/yarn.lock" ]; then
+            echo "manager=yarn" >> $GITHUB_ENV
+            echo "command=install" >> $GITHUB_ENV
+            echo "runner=yarn" >> $GITHUB_ENV
             exit 0
-          elif [ -f "${{ github.workspace }}/Next/package.json" ]; then
-            echo "manager=npm" >> $GITHUB_OUTPUT
-            echo "command=ci" >> $GITHUB_OUTPUT
-            echo "runner=npx --no-install" >> $GITHUB_OUTPUT
+          elif [ -f "${{ github.workspace }}/Final_Project/package.json" ]; then
+            echo "manager=npm" >> $GITHUB_ENV
+            echo "command=ci" >> $GITHUB_ENV
+            echo "runner=npx --no-install" >> $GITHUB_ENV
             exit 0
           else
             echo "Unable to determine package manager"
@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-          cache: ${{ steps.detect-package-manager.outputs.manager }}
+          cache: ${{ env.manager }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -54,25 +54,25 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            Next/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('Next/**/package-lock.json', 'Next/**/yarn.lock') }}-${{ hashFiles('Next/**.[jt]s', 'Next/**.[jt]sx') }}
+            Final_Project/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('Final_Project/**/package-lock.json', 'Final_Project/**/yarn.lock') }}-${{ hashFiles('Final_Project/**.[jt]s', 'Final_Project/**.[jt]sx') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('Next/**/package-lock.json', 'Next/**/yarn.lock') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('Final_Project/**/package-lock.json', 'Final_Project/**/yarn.lock') }}-
 
       - name: Install dependencies
-        run: cd Next && ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: cd Final_Project && ${{ env.manager }} ${{ env.command }}
 
       - name: Build with Next.js
-        run: cd Next && ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: cd Final_Project && ${{ env.runner }} next build
 
       - name: Static HTML export with Next.js
-        run: cd Next && ${{ steps.detect-package-manager.outputs.runner }} next export
+        run: cd Final_Project && ${{ env.runner }} next export
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: NextJSBuild
-          path: ./Next/out
+          path: ./Final_Project/out
 
   deploy:
     environment:

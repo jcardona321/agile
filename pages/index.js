@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Welcome to My Next.js Site</h1>
+        <h1>Hello Professor</h1>
         <p>This is some more content on my page!</p>
       </main>
 

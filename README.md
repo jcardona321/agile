@@ -52,3 +52,7 @@ The grading is done wholisticlaly, where each area is evaluated based on the com
 ---
 
 Grasp Agile methodologies and amass skills that stand out in the software industry.
+
+
+Figma Design:
+![image](https://github.com/jcardona321/Final_Project/assets/134986323/574b38d9-39a5-4446-9efd-0b6dbe545103)
